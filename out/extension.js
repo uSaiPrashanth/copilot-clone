@@ -3,18 +3,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = void 0;
 const vscode = require("vscode");
 const search_1 = require("./utils/search");
+<<<<<<< HEAD
 const config_1 = require("./config");
 function activate(context) {
     const inpbox = vscode.window.createInputBox();
     const disposable = vscode.commands.registerCommand('extension.copilot-clone-settings', () => {
+=======
+const matchSearchPhrase_1 = require("./utils/matchSearchPhrase");
+function activate(context) {
+    const disposable = vscode.commands.registerCommand('extension.captain-stack-settings', () => {
+>>>>>>> d3883d1299915e757752a27db169a90cad67e13b
         vscode.window.showInformationMessage('Show settings');
     });
     context.subscriptions.push(disposable);
     const provider = {
         provideInlineCompletionItems: async (document, position, context, token) => {
+<<<<<<< HEAD
             var _a;
             const textBeforeCursor = document.getText(new vscode.Range(position.with(0, 0), position));
             if (textBeforeCursor.indexOf(config_1.default.SEARCH_PHARSE_START) != -1 && textBeforeCursor[textBeforeCursor.length - 1] === config_1.default.SEARCH_PHARSE_END) {
+=======
+            const textBeforeCursor = document.getText(new vscode.Range(position.with(undefined, 0), position));
+            const match = matchSearchPhrase_1.matchSearchPhrase(textBeforeCursor);
+            if (match) {
+>>>>>>> d3883d1299915e757752a27db169a90cad67e13b
                 let rs;
                 const val = (_a = config_1.default.API_KEY) !== null && _a !== void 0 ? _a : false;
                 if (!val) {
@@ -36,7 +48,11 @@ function activate(context) {
                     });
                 }
                 try {
+<<<<<<< HEAD
                     rs = await search_1.search(textBeforeCursor.substr(textBeforeCursor.search(config_1.default.SEARCH_PHARSE_START)));
+=======
+                    rs = await search_1.search(match.searchPhrase);
+>>>>>>> d3883d1299915e757752a27db169a90cad67e13b
                 }
                 catch (err) {
                     return { items: [] };
@@ -44,14 +60,19 @@ function activate(context) {
                 if (rs == null) {
                     return { items: [] };
                 }
+<<<<<<< HEAD
                 const items = new Array();
                 rs.results.forEach((item, i) => {
                     const output = item;
                     items.push({
+=======
+                const items = rs.results.map(item => {
+                    const output = `\n${match.commentSyntax} Source: ${item.sourceURL} ${match.commentSyntaxEnd}\n${item.code}`;
+                    return {
+>>>>>>> d3883d1299915e757752a27db169a90cad67e13b
                         text: output,
-                        range: new vscode.Range(position.translate(0, output.length), position),
-                        trackingId: `snippet-${i}`,
-                    });
+                        range: new vscode.Range(position.translate(0, output.length), position)
+                    };
                 });
                 return { items };
             }
@@ -59,9 +80,5 @@ function activate(context) {
         },
     };
     vscode.languages.registerInlineCompletionItemProvider({ pattern: "**" }, provider);
-    // Be aware that the API around `getInlineCompletionItemController` will not be finalized as is!
-    vscode.window.getInlineCompletionItemController(provider).onDidShowCompletionItem(e => {
-        const id = e.completionItem.trackingId;
-    });
 }
 exports.activate = activate;
