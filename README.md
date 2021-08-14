@@ -43,11 +43,11 @@ _Note: When you make changes, you should refresh that window to apply changes. T
 
 ## 2. Play with Captain Stack
 
-To trigger inline completion, you'll need to type `//find {your keyword}.` (start with `//find`, end with a dot `.`)
+To trigger inline completion, you'll need to type `#Python {your keyword}.` (start with `#Python`, end with a dot `.`)
 
 For example
-```js
-//find binary search in javascript.
+```py
+#Python code for binary search.
 ```
 
 Make sure that `showInlineCompletions` is enabled in your settings!
@@ -76,7 +76,7 @@ If those factor became problems, the extension could be using their official API
 - Jul 14, 2021 - Adapted to VS Code Insiders Release Version 1.59
 - Jul 01, 2021 - Added snippet source (thanks for [mechero's suggestion](https://news.ycombinator.com/item?id=27698687))
 - Jun 30, 2021 - Publish the initial version
-
+- Aug 14, 2021 - Refactored code to support AI21 models (large and jumbo) for code completions 
 ---
 
 ## 5. Troubleshooting
@@ -106,9 +106,3 @@ The plugins is available, thanks to:
 - [Hieu Nguyen](https://github.com/hieunc229)
 
 **Feel free to open a thread for feedback or discussion. And have fun!**
-
----
-Love Captain Stack? Check out other things I do:
-
-- [Inverr Nocode Site Builder](https://inverr.com/?ref=github-filepond)
-- [Hieu's Twitter](https://twitter.com/hieuSSR/)
