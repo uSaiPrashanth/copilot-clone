@@ -716,32 +716,19 @@ declare module 'vscode' {
 	//#endregion
 
 	// eslint-disable-next-line vscode-dts-region-comments
-<<<<<<< HEAD
 	//#region @weinand: new debug session option 'managedByParent' (see https://github.com/microsoft/vscode/issues/128058)
-=======
-	//#region @roblourens: new debug session option for simple UI 'managedByParent' (see https://github.com/microsoft/vscode/issues/128588)
->>>>>>> d3883d1299915e757752a27db169a90cad67e13b
 
 	/**
 	 * Options for {@link debug.startDebugging starting a debug session}.
 	 */
 	export interface DebugSessionOptions {
 
-<<<<<<< HEAD
 		/**
 		 * Controls whether lifecycle requests like 'restart' are sent to the newly created session or its parent session.
 		 * By default (if the property is false or missing), lifecycle requests are sent to the new session.
 		 * This property is ignored if the session has no parent session.
 		 */
 		managedByParent?: boolean;
-=======
-		debugUI?: {
-			/**
-			 * When true, the debug toolbar will not be shown for this session, the window statusbar color will not be changed, and the debug viewlet will not be automatically revealed.
-			 */
-			simple?: boolean;
-		}
->>>>>>> d3883d1299915e757752a27db169a90cad67e13b
 	}
 
 	//#endregion

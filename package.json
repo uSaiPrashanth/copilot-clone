@@ -3,19 +3,12 @@
 	"name": "captain-stack",
 	"displayName": "Captain Stack",
 	"description": "Find snippets codes from Stackoverflow",
-<<<<<<< HEAD
-	"version": "0.0.1",
-	"publisher": "hieunc229",
-	"icon": "icon.png",
-	"repository": "https://github.com/Microsoft/vscode-extension-samples",
-=======
 	"version": "0.0.3",
 	"publisher": "captain-stack",
 	"icon": "icon.png",
 	"homepage": "https://github.com/hieunc229/copilot-clone",
 	"repository": "https://github.com/hieunc229/copilot-clone",
 	"keywords": ["code-suggestion", "copilot", "code-inference"],
->>>>>>> d3883d1299915e757752a27db169a90cad67e13b
 	"engines": {
 		"vscode": "^1.34.0"
 	},
