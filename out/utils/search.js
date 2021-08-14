@@ -1,33 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.search = void 0;
-const extractGoogleResults_1 = require("./extractGoogleResults");
-const extractStackOverflowResults_1 = require("./extractStackOverflowResults");
-const fetchPageContent_1 = require("./fetchPageContent");
+const node_fetch_1 = require("node-fetch");
+const config_1 = require("../config");
 // Send search query to google, get answers from stackoverflow
 // then extract and return code results
 async function search(keyword) {
-    return new Promise((resolve, reject) => {
-        extractGoogleResults_1.extractGoogleResults(keyword)
-            .then(async (urls) => {
-            if (urls === null) {
-                return Promise.resolve(null);
-            }
-            let results = [];
-            try {
-                let fetchResult;
-                for (const i in urls.splice(0, 6)) {
-                    if (urls[i]) {
-                        fetchResult = await fetchPageContent_1.fetchPageTextContent(urls[i]);
-                        results = results.concat(extractStackOverflowResults_1.extractSnippetResults(fetchResult).results);
-                    }
-                }
-                resolve({ results });
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).catch(reject);
+    let value = "Q:code to print hello world\nA:print(\"Hello World\")\nQ:";
+    value += keyword.substr(config_1.default.SEARCH_PHARSE_START.length + 1, keyword.length - config_1.default.SEARCH_PHARSE_END.length - config_1.default.SEARCH_PHARSE_START.length);
+    const res = await node_fetch_1.default("https://api.ai21.com/studio/v1/j1-" + config_1.default.MODEL + "/complete", {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + config_1.default.API_KEY,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            'prompt': value,
+            'numResults': 1,
+            'maxTokens': 256,
+            'stopSequences': ["Q:"],
+            'topKReturn': 0,
+            'temperature': 0.0
+        })
+    });
+    const json = await res.json();
+    value = "\n";
+    value += json.completions[0].data.text.substr(3);
+    return new Promise((resolve) => {
+        resolve({ results: [value] });
     });
 }
 exports.search = search;

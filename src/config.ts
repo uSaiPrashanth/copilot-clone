@@ -1,7 +1,8 @@
+import * as vscode from 'vscode';
 const CSConfig = {
-    SEARCH_ENDPOINT: `https://www.google.com/search?q=site%3Astackoverflow.com+`,
-    SEARCH_PHARSE_START: `//find`,
-    SEARCH_PHARSE_END: `.`
-}
-
-export default CSConfig
+	API_KEY : String(vscode.workspace.getConfiguration('copilotclone').get('key_value')),
+	SEARCH_PHARSE_START : String(vscode.workspace.getConfiguration('copilotclone').get('searchphasestart')),
+	SEARCH_PHARSE_END : String(vscode.workspace.getConfiguration('copilotclone').get('searchphaseend')),
+	MODEL:String(vscode.workspace.getConfiguration('copilotclone').get('usemodel'))
+};
+export default CSConfig;
